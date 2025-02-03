@@ -25,8 +25,8 @@ class Trie:
             # posso colocar essa lógica em uma funcao e chamar ela toda vez que precisar!!
             # usar u i para possivelmente generalizar os seguintes loops
             for i in range(len(palavra)):
-                if(palavra == "casam"):
-                    print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} teste")
+                # if(palavra == "casam"):
+                #     print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} teste")
                 if atual.esq and atual.chave == palavra[i] and i != len(palavra) - 1:
                     anterior = atual
                     atual = atual.esq
@@ -63,8 +63,8 @@ class Trie:
                     #     anterior = atual
                     #     atual = atual.esq
                     if ord(atual.chave) > ord(palavra[i]) and anterior != atual:
-                        if(palavra == "casam"):
-                            print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 111")
+                        # if(palavra == "casam"):
+                        #     print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 111")
                         nova_primeira_letra = True
                         temp = atual
                         anterior.esq = No(palavra[i])
@@ -73,8 +73,8 @@ class Trie:
                         if i == len(palavra) - 1:
                             atual.esq = No("*")
                     elif ord(atual.chave) < ord(palavra[i]) and anterior != atual:
-                        if(palavra == "casam"):
-                            print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 222")
+                        # if(palavra == "casam"):
+                        #     print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 222")
                         nova_primeira_letra = True
                         while atual.dir and ord(atual.dir.chave) < ord(palavra[i]):
                             anterior = atual
@@ -92,7 +92,7 @@ class Trie:
                             if atual.esq:
                                 anterior = atual
                                 atual = atual.esq
-                            continue
+                            #continue
                         else:
                             atual.dir = No(palavra[i])
                             anterior = atual
@@ -109,8 +109,8 @@ class Trie:
                                 atual.esq = No("*")
                     elif ord(atual.chave) < ord(palavra[i]) and anterior == atual:
                         nova_primeira_letra = True
-                        if(palavra == "casam"):
-                            print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 333")
+                        # if(palavra == "casam"):
+                        #     print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 333")
                         while atual.dir and ord(atual.dir.chave) < ord(palavra[i]):
                             anterior = atual
                             atual = atual.dir
@@ -135,8 +135,8 @@ class Trie:
                         if i == len(palavra) - 1:
                             atual.esq = No("*")
                     elif ord(atual.chave) > ord(palavra[i]) and anterior == atual:
-                        if(palavra == "casam"):
-                            print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 444")
+                        # if(palavra == "casam"):
+                        #     print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 444")
                         nova_primeira_letra = True
                         nova_raiz = No(palavra[i])
                         self.raiz = nova_raiz
@@ -172,8 +172,8 @@ class Trie:
                     # if atual.esq:
                     #     atual = atual.esq
                 elif not atual.esq:
-                    if(palavra == "casam"):
-                        print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 555")
+                    # if(palavra == "casam"):
+                    #     print(f"atual.chave: {atual.chave} palavra[i]: {palavra[i]} entrou aqui 555")
                     atual.esq = No(palavra[i])
                     #atual = atual.esq
                     if i == len(palavra) - 1:
@@ -313,23 +313,34 @@ class Trie:
         atual: No = self.raiz
         resultado: List[str] = []
         for i,le in enumerate(pre):
-            print(le)
+            # print(le)
             while atual.dir and atual.chave != le:
                 atual = atual.dir
-            print(f"atual.chave {atual.chave}")
+            # print(f"atual.chave {atual.chave}")
             if atual.chave == le and atual.esq:
                 atual = atual.esq
-            print(f"atual.chave {atual.chave}")
+            # print(f"atual.chave {atual.chave}")
         while True:
             ponteiro_esq: No = atual
+            anterior: No = atual
             palav: str = ""
             palav += pre
             while ponteiro_esq.esq:
-                print(f"ponteiro_esq.chave {ponteiro_esq.chave}")
-                if ponteiro_esq.chave == "*":
+                # print(f"ponteiro_esq.chave {ponteiro_esq.chave}")
+                # if ponteiro_esq.chave == "a":
+                    # print(ponteiro_esq.esq.chave)
+                if ord(ponteiro_esq.esq.chave) == 42:
+                    palav += ponteiro_esq.chave
                     resultado.append(palav)
+                    if ponteiro_esq.dir:
+                        anterior = ponteiro_esq
+                        ponteiro_esq = ponteiro_esq.dir
+                        palav = palav[0:-1]
+                        continue
+                    # print("entrou")
                 else:
                     palav += ponteiro_esq.chave
+                anterior = ponteiro_esq
                 ponteiro_esq = ponteiro_esq.esq
             if not atual.dir:
                 break
@@ -339,4 +350,7 @@ class Trie:
         return resultado
 
     def sufixo(self, su: str) -> List[str]:
-        return []
+        atual: No = self.raiz
+        resultado: List[str] = []
+        resultado.sort()
+        return resultado

@@ -32,10 +32,21 @@ while entrada != 'e':
         if tr.raiz.chave == "":
             print("trie vazia")
         result_r = tr.prefixo(arg)
+        print(f"palavras com prefixo: {arg}")
+        # print("result_r:")
+        # print(*result_r)
         for e in result_r:
             print(e)
     elif entrada == 's':
-        pass
+        arg: str = input()
+        if tr.raiz.chave == "":
+            print("trie vazia")
+        result_s = tr.sufixo(arg)
+        print(f"palavras com sufixo: {arg}")
+        # print("result_r:")
+        # print(*result_r)
+        for e in result_s:
+            print(e)
     else:
         pass
 
