@@ -18,7 +18,7 @@ while entrada != 'e':
         print(result_c)
     elif entrada == 'f':
         result_f: List = tr.rankear()
-        if len(result_f[0]) == 0:
+        if tr.raiz.chave == "":
             print("trie vazia")
         else:
             print("palavras mais consultadas:")
@@ -27,6 +27,15 @@ while entrada != 'e':
             print("numero de acessos: " + str(result_f[1]))
     elif entrada == 'p':
         tr.imprimir_arvore()
+    elif entrada == 'r':
+        arg: str = input()
+        if tr.raiz.chave == "":
+            print("trie vazia")
+        result_r = tr.prefixo(arg)
+        for e in result_r:
+            print(e)
+    elif entrada == 's':
+        pass
     else:
         pass
 
